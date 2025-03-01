@@ -11,6 +11,10 @@ const PaymentsSchema = Schema({
         type: String
     },
 
+    img: {
+        type: String
+    },
+
     type: {
         type: String,
         require: true

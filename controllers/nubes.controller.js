@@ -125,14 +125,16 @@ const updateNube = async(req, res = response) => {
         }
 
         if (campos.link) {
-            campos.link = campos.link.trim().toLowerCase();
-            const validateLink = await Nube.findOne({ link: campos.link });
-            if (validateLink && validateLink._id !== nuid) {
-                return res.status(404).json({
-                    ok: false,
-                    msg: 'Ya existe una nube con este mismo link'
-                })
-            }
+            if (campos.link.trim().toLowerCase() !== nubeDB.link) {
+                campos.link = campos.link.trim().toLowerCase();
+                const validateLink = await Nube.findOne({ link: campos.link });
+                if (validateLink && validateLink._id !== nuid) {
+                    return res.status(404).json({
+                        ok: false,
+                        msg: 'Ya existe una nube con este mismo link'
+                    })
+                }
+            }            
         }
 
 

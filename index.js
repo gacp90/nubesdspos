@@ -33,6 +33,7 @@ app.use('/api/login', require('./routes/auth.route'));
 app.use('/api/nubes', require('./routes/nubes.route'));
 app.use('/api/payments', require('./routes/payments.route'));
 app.use('/api/users', require('./routes/users.route'));
+app.use('/api/uploads', require('./routes/uploads.route'));
 
 // SPA
 app.get('*', (req, res) => {

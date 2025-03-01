@@ -5,14 +5,17 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 // MIDDLEWARES
+const expressFileUpload = require('express-fileupload');
+const { validarJWT } = require('../middleware/validar-jwt');
+const { validarCampos } = require('../middleware/validar-campos');
 
 // CONTROLLERS
 const { getPayments, createPayment, updatePayment } = require('../controllers/payments.controller');
 
-const { validarJWT } = require('../middleware/validar-jwt');
-const { validarCampos } = require('../middleware/validar-campos');
 
 const router = Router();
+
+router.use(expressFileUpload());
 
 /** =====================================================================
  *  GET
@@ -22,13 +25,7 @@ router.post('/query', validarJWT, getPayments);
 /** =====================================================================
  *  POST CREATE
 =========================================================================*/
-router.post('/', [
-        validarJWT,
-        check('monto', 'El monto es obligatorio').not().isEmpty(),
-        validarCampos
-    ],
-    createPayment
-);
+router.post('/', validarJWT, createPayment);
 
 /** =====================================================================
  *  PUT
